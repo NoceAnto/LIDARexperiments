@@ -467,18 +467,6 @@ The most important parameter is:
 distance_threshold
 ```
 
-The single-frame demonstration currently uses:
-
-```python
-distance_threshold = 0.03
-```
-
-corresponding to:
-
-```text
-3 cm
-```
-
 The reusable `extract_person_pc()` function currently uses:
 
 ```python
