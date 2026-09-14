@@ -77,7 +77,7 @@ Scene point cloud + Static background
                 │
                 ▼
        Clean foreground
-
+```
 
 ---
 
