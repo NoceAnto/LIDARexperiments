@@ -17,68 +17,6 @@ The repository implements a simple LiDAR processing workflow for:
 
 The current implementation uses the **Open3D legacy geometry API** (`open3d.geometry.PointCloud`).
 
-
-## Background Subtraction Example
-
-The following example illustrates the main stages of the LiDAR
-background-subtraction pipeline.
-
-A static background point cloud is used as a spatial reference. For each
-point in the acquired scene, the nearest point in the background is found
-using a KD-tree. Scene points whose nearest-background distance exceeds the
-selected threshold are retained as foreground points.
-
-The extracted foreground is subsequently processed using statistical
-outlier removal to suppress isolated measurements and residual subtraction
-noise.
-
-<table>
-  <tr>
-    <td align="center">
-      <img src="background_subtraction_images/01_scene.png" width="100%"><br>
-      <b>(a) Scene point cloud</b>
-    </td>
-    <td align="center">
-      <img src="background_subtraction_images/02_background.png" width="100%"><br>
-      <b>(b) Reference background</b>
-    </td>
-  </tr>
-  <tr>
-    <td align="center">
-      <img src="background_subtraction_images/03_foreground.png" width="100%"><br>
-      <b>(c) Extracted foreground</b>
-    </td>
-    <td align="center">
-      <img src="background_subtraction_images/04_foreground_filtered.png" width="100%"><br>
-      <b>(d) Foreground after statistical outlier removal</b>
-    </td>
-  </tr>
-</table>
-
-The processing sequence shown above can be summarized as:
-
-```text
-Scene point cloud + Static background
-                │
-                ▼
-        KD-tree construction
-                │
-                ▼
-   Nearest-background distance
-                │
-                ▼
-      Distance thresholding
-                │
-                ▼
-        Raw foreground
-                │
-                ▼
- Statistical outlier removal
-                │
-                ▼
-       Clean foreground
-```
-
 ---
 
 ## Repository Structure
@@ -141,6 +79,68 @@ Extracted person / foreground object
 ```
 
 This script is useful for visually inspecting the algorithm and tuning its parameters.
+
+# Background Subtraction Example
+
+The following example illustrates the main stages of the LiDAR
+background-subtraction pipeline.
+
+A static background point cloud is used as a spatial reference. For each
+point in the acquired scene, the nearest point in the background is found
+using a KD-tree. Scene points whose nearest-background distance exceeds the
+selected threshold are retained as foreground points.
+
+The extracted foreground is subsequently processed using statistical
+outlier removal to suppress isolated measurements and residual subtraction
+noise.
+
+<table>
+  <tr>
+    <td align="center">
+      <img src="background_subtraction_images/01_scene.png" width="100%"><br>
+      <b>(a) Scene point cloud</b>
+    </td>
+    <td align="center">
+      <img src="background_subtraction_images/02_background.png" width="100%"><br>
+      <b>(b) Reference background</b>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <img src="background_subtraction_images/03_foreground.png" width="100%"><br>
+      <b>(c) Extracted foreground</b>
+    </td>
+    <td align="center">
+      <img src="background_subtraction_images/04_foreground_filtered.png" width="100%"><br>
+      <b>(d) Foreground after statistical outlier removal</b>
+    </td>
+  </tr>
+</table>
+
+The processing sequence shown above can be summarized as:
+
+```text
+Scene point cloud + Static background
+                │
+                ▼
+        KD-tree construction
+                │
+                ▼
+   Nearest-background distance
+                │
+                ▼
+      Distance thresholding
+                │
+                ▼
+        Raw foreground
+                │
+                ▼
+ Statistical outlier removal
+                │
+                ▼
+       Clean foreground
+```
+
 
 ### `main_background_sub_sequence.py`
 
